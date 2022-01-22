@@ -1,0 +1,2 @@
+GET http://localhost:3001/characters/:id
+//Get one character of route params

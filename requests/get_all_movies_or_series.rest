@@ -1,0 +1,21 @@
+GET http://localhost:3001/movies
+//Get all movies
+
+###
+GET http://localhost:3001/movies?title=test
+//Get all movies of title value
+
+###
+GET http://localhost:3001/movies?title=test&&ordcer=DESC
+//Default order value ASC - Get all movies of title value and, ASC or DESC order
+###
+GET http://localhost:3001/movies?order=ASC
+//Default order value ASC - Get all movies in ASC or DESC order
+
+###
+GET http://localhost:3001/movies?order=ASC&&title=test
+//Default order value ASC - Get all movies of title value and, ASC or DESC order
+
+###
+GET http://localhost:3001/movies?genre=test
+//Get all movies of genre value

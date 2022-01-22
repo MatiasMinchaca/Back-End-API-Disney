@@ -1,0 +1,11 @@
+POST http://localhost:3001/characters
+Content-Type: application/json
+
+{
+    "image": "test.png",
+    "name": "test2",
+    "age": 23,
+    "weight": 54,
+    "history": "test of history"
+}
+//Endpoint for create and Body content

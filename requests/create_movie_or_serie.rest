@@ -1,0 +1,14 @@
+POST http://localhost:3001/movies
+Content-Type: application/json
+
+{
+    "image": "test.png",
+    "title": "test",
+    "qualification": 5,
+    "created_date": "2021-12-15",
+    "characterIds": [
+        44,
+        45
+    ]
+}
+//Endpoint for create and Body content

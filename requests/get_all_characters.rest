@@ -1,0 +1,22 @@
+GET http://localhost:3001/characters 
+//Get all characters
+
+###
+GET http://localhost:3001/characters?name=value
+//Get all characters of name value
+
+###
+GET http://localhost:3001/characters?name=test&&age=value
+//Get all characters of name value and age value
+
+###
+GET http://localhost:3001/characters?age=value
+//Get all characters of age value
+
+###
+GET http://localhost:3001/characters?age=33&&name=value
+//Get all characters of age value and name value
+
+###
+GET http://localhost:3001/characters?movie=Id value
+//Get all characters of movie Id value
