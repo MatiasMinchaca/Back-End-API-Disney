@@ -2,7 +2,7 @@ const db = require('../database/models');
 let bcrypt = require('bcryptjs');
 const sgMail = require('../services/sendgrid')
 const jwt = require('jsonwebtoken')
-const {jsonToken} = require('../../config/index')
+const {jsonToken} = require('../../config/jsonToken')
 
 module.exports = {
     register: (req, res) => {

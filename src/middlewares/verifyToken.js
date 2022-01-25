@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const {jsonToken} = require('../../config/index')
+const {jsonToken} = require('../../config/jsonToken')
 function verifyToken (req, res, next){
     const token = req.headers['authorization'];
     if (!token){
