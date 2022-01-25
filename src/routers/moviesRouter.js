@@ -5,17 +5,17 @@ let {
     movieCreate,
     movieDelete,
     movieUpdate,
-    movie,
-    movieSearch} = require('../controllers/moviesController');
+    movie} = require('../controllers/moviesController');
+let verifyToken = require('../middlewares/verifyToken')
 
 /* GET */
-router.get('/', movies)
-router.get('/:id', movie)
+router.get('/', movies);
+router.get('/:id', movie);
 /* POST */
-router.post('/', movieCreate)
+router.post('/', verifyToken, movieCreate);
 /* PUT */
-router.put('/:id', movieUpdate)
+router.put('/:id', verifyToken, movieUpdate);
 /* DELETE */
-router.delete('/:id', movieDelete)
+router.delete('/:id', verifyToken, movieDelete);
 
 module.exports = router;

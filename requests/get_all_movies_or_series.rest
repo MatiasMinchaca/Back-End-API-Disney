@@ -1,21 +1,26 @@
 GET http://localhost:3001/movies
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImlhdCI6MTY0MzA0ODE2MiwiZXhwIjoxNjQzMTM0NTYyfQ.pUFynflTc4P5Slpy3cKPbc0pEXel-X611gdzEMgKgfg
 //Get all movies
 
 ###
 GET http://localhost:3001/movies?title=test
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImlhdCI6MTY0MzA0ODE2MiwiZXhwIjoxNjQzMTM0NTYyfQ.pUFynflTc4P5Slpy3cKPbc0pEXel-X611gdzEMgKgfg
 //Get all movies of title value
 
 ###
 GET http://localhost:3001/movies?title=test&&ordcer=DESC
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImlhdCI6MTY0MzA0ODE2MiwiZXhwIjoxNjQzMTM0NTYyfQ.pUFynflTc4P5Slpy3cKPbc0pEXel-X611gdzEMgKgfg
 //Default order value ASC - Get all movies of title value and, ASC or DESC order
 ###
 GET http://localhost:3001/movies?order=ASC
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImlhdCI6MTY0MzA0ODE2MiwiZXhwIjoxNjQzMTM0NTYyfQ.pUFynflTc4P5Slpy3cKPbc0pEXel-X611gdzEMgKgfg
 //Default order value ASC - Get all movies in ASC or DESC order
 
 ###
 GET http://localhost:3001/movies?order=ASC&&title=test
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImlhdCI6MTY0MzA0ODE2MiwiZXhwIjoxNjQzMTM0NTYyfQ.pUFynflTc4P5Slpy3cKPbc0pEXel-X611gdzEMgKgfg
 //Default order value ASC - Get all movies of title value and, ASC or DESC order
 
 ###
-GET http://localhost:3001/movies?genre=test
-//Get all movies of genre value
+GET http://localhost:3001/movies?genre=1
+//Get all movies of genre id value 

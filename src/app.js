@@ -1,18 +1,18 @@
 /* Requires */
 const express = require('express');
 const app = express();
+const methodOverride = require('method-override');
 const path = require('path');
 const cors = require('cors');
-
+const axios = require('axios')
 /* PORT */
 const port = 3001;
 
 /* Routers */
-const homeRouter = require('./routers/homeRouter'); 
-/* const authRouter = require('./routers/authRouter')*/
-const charactersRouter = require('./routers/charactersRouter')
-const moviesRouter = require('./routers/moviesRouter') 
-const testRouter = require('./routers/testRouter') 
+const authRouter = require('./routers/authRouter');
+const charactersRouter = require('./routers/charactersRouter');
+const moviesRouter = require('./routers/moviesRouter');
+const testRouter = require('./routers/testRouter');
 
 /* MIDDLEWARES */
 app.set('views', path.join(__dirname, 'views'));
@@ -21,10 +21,10 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.urlencoded({ extended : false })); 
 app.use(cors())
 app.use(express.json());
+app.use(methodOverride('_method'));
 
 /* Routes */
-app.use('/', homeRouter);
-/* app.use('/auth', authRouter);*/
+app.use('/auth', authRouter);
 app.use('/characters', charactersRouter);
 app.use('/movies', moviesRouter); 
 app.use('/test', testRouter); 

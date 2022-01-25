@@ -1,9 +1,10 @@
 POST http://localhost:3001/characters
 Content-Type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImlhdCI6MTY0MzA0ODE2MiwiZXhwIjoxNjQzMTM0NTYyfQ.pUFynflTc4P5Slpy3cKPbc0pEXel-X611gdzEMgKgfg
 
 {
     "image": "test.png",
-    "name": "test2",
+    "name": "test",
     "age": 23,
     "weight": 54,
     "history": "test of history"

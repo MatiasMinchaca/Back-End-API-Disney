@@ -172,23 +172,78 @@ module.exports = {
             name,
             age,
             weight,
-            history,
-            moviesOrSeriesId
+            history
         } = req.body
-        db.Character.create({
+        if (!name && !age && !weight && !history) {
+            res.status(404).json({
+                error: 'The indicated fields are required'
+            })
+        }else if(!name) {
+            res.status(404).json({
+                error: 'The "name" field cannot be empty'
+            })
+        }else if(!age){
+            res.status(404).json({
+                error: 'The "age" field cannot be empty'
+            })
+        }else if(!weight){
+            res.status(404).json({
+                error: 'The "weight" field cannot be empty'
+            })
+        }else if(!history){
+            res.status(404).json({
+                error: 'The "history" field cannot be empty'
+            })
+        }else {
+            db.Character.create({
+                image: image ? image : 'default image.jpg',
+                name,
+                age,
+                weight,
+                history
+            }).then(character => {
+                res.status(201).json({
+                    message: `Created successfully character: ${character.name}`
+                })
+            }).catch(error => console.log(error))
+        }
+        
+    },
+    characterUpdate: (req, res) => {
+        let {
             image,
             name,
             age,
             weight,
             history
-        }).then(() => {
-            res.status(201).json({
-                message: 'Created successfully'
-            })
-        }).catch(error => console.log(error))
-    },
-    characterUpdate: (req, res) => {
-
+        } = req.body
+        db.Character.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).then(character => {
+            if(character !== null){
+                db.Character.update({
+                    image: image ? image : character.image,
+                    name: name ? name : character.name,
+                    age: age ? age : character.age,
+                    weight: weight ? weight : character.weight,
+                    history: history ? history : character.history
+                },{
+                    where: {
+                        id: character.id
+                    }
+                }).then(() => {
+                    res.status(201).json({
+                        message: `Updated successfully character: ${name}`
+                    })
+                })
+            } else{
+                res.status(404).json({
+                    error: 'Failed to update'
+                })
+            }
+        })
     },
     characterDelete: (req, res) => {
         db.Character.findOne({
@@ -204,7 +259,7 @@ module.exports = {
                 }).then(() => {
                     db.Character.destroy({
                         where: {
-                            id: req.params.id
+                            id: character.id
                         }
                     }).then(() => {
                         res.status(201).json({
@@ -214,7 +269,7 @@ module.exports = {
                 })
             }else{
                 res.status(404).json({
-                    error: 'No Content'
+                    error: 'Failed to delete'
                 })
             }
             

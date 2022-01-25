@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit: <%= movieOrSerie.title %></title>
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+</head>
+<body>
+    <main>
+        <div class="container-forms">
+            <div class="form">
+                <a><img src="https://fontmeme.com/permalink/220122/45b17d804ea146c555f68545cc0333d9.png"></a>
+                <form action="http://localhost:3001/movies/<%= movieOrSerie.id %>?_method=PUT" method="POST">
+                    <div>
+                        <label for="title"><a><img src="https://fontmeme.com/permalink/220122/2026efc0dd140fb07f3df930e8406fec.png" ></a></label>
+                        <input type="text" name="title" id="title" value="<%= movieOrSerie.title %>">
+                    </div>
+                    <div>
+                        <label for="imageM"><a><img src="https://fontmeme.com/permalink/220122/802fb99fa26e4a4bfdabdba78dcafef1.png" ></a></label>
+                        <input type="file" name="image" id="imageM" value="<%= movieOrSerie.image %>">
+                    </div>
+                    <div>
+                        <label for="created_date"><a><img src="https://fontmeme.com/permalink/220122/47072bbaa021cea000eb5d91222e5081.png" ></a></label>
+                        <input type="date" name="created_date" id="created_date" value="<%= movieOrSerie.created_date %>">
+                    </div>
+                    <div>
+                        <label for="qualification"><a><img src="https://fontmeme.com/permalink/220122/fcbead5aae6e088ce4b4ed74a79616d8.png" ></a></label>
+                        <input type="number" name="qualification" id="qualification" value="<%= movieOrSerie.qualification %>">
+                    </div>
+                    <div>
+                        <label for="characterIds"><a><img src="https://fontmeme.com/permalink/220122/cfc3a42317e827159841dfbbf6f1062d.png" ></a></label>
+                        <select data-placeholder="Begin typing a name to filter..." class="chosen-select" name="characterIds" id="characterIds" style="overflow: hidden; width: 100px;" multiple >
+                            <% characters.forEach(character => { %>
+                                <option value="<%= character.id %> "><%= character.name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <button type="submit" class="button-submit">Enviar</button>
+                    <label for="deletebutton" class="button-submit">Eliminar</label>
+                    <a href="/test" class="button-submit">Cancel</a>
+                </form>
+                <form action="http://localhost:3001/movies/<%= movieOrSerie.id %>?_method=DELETE" method="POST" style="display: none;">
+                    <button type="submit" id="deletebutton"></button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script src="/js/multipleSelect.js"></script>
+</body>
+</html>

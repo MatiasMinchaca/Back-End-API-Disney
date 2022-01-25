@@ -1,6 +1,7 @@
 const db = require('../database/models');
-const { Op, DATE } = require('sequelize'); 
+const { Op } = require('sequelize'); 
 const moment = require('moment')
+const axios = require('axios')
 module.exports = {
     movies: (req, res) => {
         const search = req.query
@@ -32,7 +33,7 @@ module.exports = {
             }else if(Object.keys(search)[0] == 'genre'){
                 db.Genre.findOne({
                     where: {
-                        name: Object.values(search)[0]
+                        id: Object.values(search)[0]
                     },
                     include: [
                         {association: 'MoviesOrSeries',
@@ -150,7 +151,8 @@ module.exports = {
             title,
             qualification,
             created_date,
-            characterIds
+            characterIds,
+            genresIds
         } = req.body;
         if(!title){
             res.status(404).json({
@@ -169,13 +171,13 @@ module.exports = {
                         let arrayId = characterIds.map(id => {
                             return {
                                 movies_or_series_id: MovieOrSerie.id,
-                            character_id: id
+                                character_id: id
                             };
                         })
                         db.CharacterMovieOrSerie.bulkCreate(arrayId)
                         .then(() => {
                             res.status(201).json({
-                                message: 'Created successfully'
+                                message: `Created successfully movie or serie: ${MovieOrSerie.title}`
                             })
                         }).catch(error => console.log(error))
                     }else{
@@ -185,13 +187,13 @@ module.exports = {
                         })
                         .then(() => {
                             res.status(201).json({
-                                message: 'Created successfully'
+                                message: `Created successfully movie or serie: ${MovieOrSerie.title}`
                             })
                         }).catch(error => console.log(error))
                     }
                 }else{
                     res.status(201).json({
-                        message: 'Created successfully'
+                        message: `Created successfully movie or serie: ${MovieOrSerie.title}`
                     })
                 }
             }).catch(error => console.log(error))
@@ -201,13 +203,88 @@ module.exports = {
         let {
             image,
             title,
-            qualification
+            qualification,
+            created_date,
+            characterIds
         } = req.body;
-        db.MovieOrSerie.update({
-            image,
-            title,
-            qualification
+
+        const updated = (movieOrSerie) => {
+            db.MovieOrSerie.update({
+                image: image ? image : movieOrSerie.image,
+                title: title ? title : movieOrSerie.title,
+                qualification: qualification ? qualification : movieOrSerie.qualification,
+                created_date: created_date ? created_date : movieOrSerie.created_date
+            },{
+                where: {
+                    id: movieOrSerie.id
+                }
+            }).then(() => {
+                res.status(201).json({
+                    message: `Updated successfully movie or serie: ${title}`
+                })
+            })
+        }
+
+        db.MovieOrSerie.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).then(movieOrSerie => {
+            if(movieOrSerie != null){
+                if(characterIds != undefined){
+                    if(Array.isArray(characterIds)){
+                        let arrayId = characterIds.map(id => {
+                            return {
+                                movies_or_series_id: movieOrSerie.id,
+                                character_id: id
+                            };
+                        })
+                        db.CharacterMovieOrSerie.findAll({
+                            where: {
+                                movies_or_series_id: movieOrSerie.id,
+                                character_id: characterIds
+                            }
+                        }).then(conections => {
+                            if(conections != null){
+                                updated(movieOrSerie)
+                            }else {
+                                db.CharacterMovieOrSerie.bulkCreate(arrayId)
+                                .then(() => {
+                                    updated(movieOrSerie)
+                                }).catch(error => console.log(error))
+                            }
+                        })
+                        
+                    }else {
+                        db.CharacterMovieOrSerie.findOne({
+                            where: {
+                                movies_or_series_id: movieOrSerie.id,
+                                character_id: characterIds
+                            }
+                        }).then(conection => {
+                            if(conection != null) {
+                                updated(movieOrSerie)
+                            }else {
+                                db.CharacterMovieOrSerie.create({
+                                    movies_or_series_id: movieOrSerie.id,
+                                    character_id: characterIds
+                                }).then(() => {
+                                    updated(movieOrSerie)
+                                })
+                            }
+                        })
+                    }
+                }else {
+                    updated(movieOrSerie)
+                }
+                
+            }else {
+                res.status(404).json({
+                    error: 'Failed to update'
+                })
+            }
         })
+        
 
     },
     movieDelete: (req, res) => {
@@ -217,46 +294,32 @@ module.exports = {
             }
         }).then(movieOrSerie => {
             if(movieOrSerie !== null){
-                db.CharacterMovieOrSerie.destroy({
+                db.GenreMovieOrSerie.destroy({
                     where: {
                         movies_or_series_id: movieOrSerie.id
                     }
                 }).then(() => {
-                    db.MovieOrSerie.destroy({
+                    db.CharacterMovieOrSerie.destroy({
                         where: {
-                            id: req.params.id
+                            movies_or_series_id: movieOrSerie.id
                         }
                     }).then(() => {
-                        res.status(201).json({
-                            message: 'Delete successfully'
-                        })
-                    }).catch(error => console.log(error))
+                        db.MovieOrSerie.destroy({
+                            where: {
+                                id: req.params.id
+                            }
+                        }).then(() => {
+                            res.status(204).json({
+                                message: 'Delete successfully'
+                            })
+                        }).catch(error => console.log(error))
+                })
                 }).catch(error => console.log(error))
             } else{
                 res.status(404).json({
-                    error: 'No Content'
+                    error: 'Failed to delete'
                 })
             }
         }).catch(error => console.log(error))
-    },
-    movieSearch: (req, res) => {
-        const characterIds = req.body.characterIds
-        if(characterIds != undefined && characterIds.length > 0){
-            if(Array.isArray(characterIds)){
-                characterIds.map(element => {
-                    console.log(element)
-                })
-            }else{
-                console.log(characterIds)
-            }
-        }else{
-            console.log('ahora si')
-        }
-        /* multiple.forEach(element => {
-            data.push(element)
-        });
-        console.log(data)
-        console.log(req.body.multiple)
-        console.log(req.body.multiple.length) */
     }
 }

@@ -4,8 +4,8 @@ let {
     login,
     register} = require('../controllers/authController');
 
-/* GET */
-router.get('/', login)
-router.get('/', register)
+/* POST */
+router.post('/login', login);
+router.post('/register', register);
 
 module.exports = router;

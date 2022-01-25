@@ -4,34 +4,127 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proof</title>
+    <title>Test</title>
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
 </head>
 <body>
     <main>
-        <div>
-            <form action="/characters" method="POST">
-                <input type="text" name="name" id="">
-                <input type="file" name="image">
-                <input type="number" name="age">
-                <input type="number" name="weight">
-                <input type="text" name="history">
-                <button type="submit">Enviar</button>
-            </form>
+        <div class="container-cards">
+            <h2 class="title-cards">All movies or series</h2>
+            <% if (moviesOrSeries) { %>
+                <% moviesOrSeries.forEach(movie => { %>
+                    <a href="http://localhost:3001/test/movie/<%= movie.id %>" class="item">
+                        <div class=item-border>
+                            <div class="data">
+                                <p>
+                                    Title: <%= movie.title %>
+                                </p>
+                                <p>
+                                    Qualification: <%= movie.qualification %>
+                                </p>
+                                <p>
+                                    <%= movie.created_date %>
+                                </p>
+                            </div>
+                            <img alt="" class="item-image hover-image" src="https://prod-ripcut-delivery.disney-plus.net/v1/rawFiles/disney/RAW_C061B00E543326DA345FBF996B4D3D76422B58A49FDEE9AD9A2664618619A8F9" />
+                        </div>
+                    </a>
+                <% }) %>
+                
+            <% } else { %>
+                <h2 class="title-cards">No Content</h2>
+            <% } %>
+            
         </div>
-        <div>
-            <form action="/movies" method="POST">
-                <input type="file" name="image">
-                <input type="text" name="title">
-                <input type="date" name="created_date">
-                <input type="number" name="qualification">
-                <select name="characterIds" id="" style="overflow: hidden; width: 100px;" multiple >
-                    <option value="44">prueba</option>
-                    <option value="45">Matias</option>
-                    <option value="46">prueba2</option>
-                </select>
-                <button type="submit">Enviar</button>
-            </form>
+        <div class="container-cards">
+            <h2 class="title-cards">All characters</h2>
+            <% if (characters) { %>
+                <% characters.forEach(character => { %>
+                    <a href="http://localhost:3001/test/character/<%= character.id %>" class="item">
+                        <div class=item-border>
+                            <div class="data">
+                                <p>
+                                    Name: <%= character.name %> 
+                                </p>
+                                <p>
+                                    Age: <%= character.age %> 
+                                </p>
+                                <p>
+                                    Weight: <%= character.weight %> 
+                                </p>
+                            </div>
+                            <img alt="" class="item-image hover-image" src="https://prod-ripcut-delivery.disney-plus.net/v1/rawFiles/disney/RAW_C061B00E543326DA345FBF996B4D3D76422B58A49FDEE9AD9A2664618619A8F9" />
+                        </div>
+                    </a>
+                <% }) %>
+                
+            <% } else { %>
+                <h2 class="title-cards">No Content</h2>
+            <% } %>
+            
+        </div>
+        <div class="container-forms">
+            <div class="form">
+                <a><img src="https://fontmeme.com/permalink/220122/c24e3b430d9cbd81943cae5c1b91843a.png"></a>
+                <form id="form-create-character" action="/characters" method="POST">
+                    <div>
+                        <label for="nameC"><a><img src="https://fontmeme.com/permalink/220122/b06533ef78e73622d3bc0b75d13805d3.png" ></a></label>
+                        <input type="text" name="name" id="nameC">
+                    </div>
+                    <div>
+                        <label for="imageC"><a><img src="https://fontmeme.com/permalink/220122/802fb99fa26e4a4bfdabdba78dcafef1.png" ></a></label>
+                        <input type="file" name="image" id="imageC">
+                    </div>
+                    <div>
+                        <label for="age"><a><img src="https://fontmeme.com/permalink/220122/bd0b33971cd7e1ffdcb3b8137e6dd806.png" ></a></label>
+                        <input type="number" name="age" id="age">
+                    </div>
+                    <div>
+                        <label for="weight"><a><img src="https://fontmeme.com/permalink/220122/f576079663bfdd32194740bbae99f424.png" ></a></label>
+                        <input type="number" name="weight" id="weight">
+                    </div>
+                    <div>
+                        <label for="history"><a><img src="https://fontmeme.com/permalink/220122/6d5a29bb4a553cd5bd5c2d05aa0f7f45.png" ></a></label>
+                        <input type="text" name="history" id="history">
+                    </div>
+                    <button type="submit" class="button-submit">Enviar</button>
+                </form>
+            </div>
+            <div class="form">
+                <a><img src="https://fontmeme.com/permalink/220122/45b17d804ea146c555f68545cc0333d9.png"></a>
+                <form action="/movies" method="POST">
+                    <div>
+                        <label for="title"><a><img src="https://fontmeme.com/permalink/220122/2026efc0dd140fb07f3df930e8406fec.png" ></a></label>
+                        <input type="text" name="title" id="title">
+                    </div>
+                    <div>
+                        <label for="imageM"><a><img src="https://fontmeme.com/permalink/220122/802fb99fa26e4a4bfdabdba78dcafef1.png" ></a></label>
+                        <input type="file" name="image" id="imageM">
+                    </div>
+                    <div>
+                        <label for="created_date"><a><img src="https://fontmeme.com/permalink/220122/47072bbaa021cea000eb5d91222e5081.png" ></a></label>
+                        <input type="date" name="created_date" id="created_date">
+                    </div>
+                    <div>
+                        <label for="qualification"><a><img src="https://fontmeme.com/permalink/220122/fcbead5aae6e088ce4b4ed74a79616d8.png" ></a></label>
+                        <input type="number" name="qualification" id="qualification">
+                    </div>
+                    <div>
+                        <label for="characterIds"><a><img src="https://fontmeme.com/permalink/220122/cfc3a42317e827159841dfbbf6f1062d.png" ></a></label>
+                        <select data-placeholder="Begin typing a name to filter..." class="chosen-select" name="characterIds" id="characterIds" style="overflow: hidden; width: 100px;" multiple >
+                            <% characters.forEach(character => { %>
+                                <option value="<%= character.id %> "><%= character.name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <button type="submit" class="button-submit">Enviar</button>
+                </form>
+            </div>
         </div>
     </main>
+    <script src="/js/multipleSelect.js" defer></script>
 </body>
 </html>

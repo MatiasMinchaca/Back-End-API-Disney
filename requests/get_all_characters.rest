@@ -1,22 +1,28 @@
-GET http://localhost:3001/characters 
+GET http://localhost:3001/characters
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImlhdCI6MTY0MzA0ODE2MiwiZXhwIjoxNjQzMTM0NTYyfQ.pUFynflTc4P5Slpy3cKPbc0pEXel-X611gdzEMgKgfg
 //Get all characters
 
 ###
 GET http://localhost:3001/characters?name=value
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImlhdCI6MTY0MzA0ODE2MiwiZXhwIjoxNjQzMTM0NTYyfQ.pUFynflTc4P5Slpy3cKPbc0pEXel-X611gdzEMgKgfg
 //Get all characters of name value
 
 ###
 GET http://localhost:3001/characters?name=test&&age=value
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImlhdCI6MTY0MzA0ODE2MiwiZXhwIjoxNjQzMTM0NTYyfQ.pUFynflTc4P5Slpy3cKPbc0pEXel-X611gdzEMgKgfg
 //Get all characters of name value and age value
 
 ###
 GET http://localhost:3001/characters?age=value
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImlhdCI6MTY0MzA0ODE2MiwiZXhwIjoxNjQzMTM0NTYyfQ.pUFynflTc4P5Slpy3cKPbc0pEXel-X611gdzEMgKgfg
 //Get all characters of age value
 
 ###
 GET http://localhost:3001/characters?age=33&&name=value
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImlhdCI6MTY0MzA0ODE2MiwiZXhwIjoxNjQzMTM0NTYyfQ.pUFynflTc4P5Slpy3cKPbc0pEXel-X611gdzEMgKgfg
 //Get all characters of age value and name value
 
 ###
 GET http://localhost:3001/characters?movie=Id value
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImlhdCI6MTY0MzA0ODE2MiwiZXhwIjoxNjQzMTM0NTYyfQ.pUFynflTc4P5Slpy3cKPbc0pEXel-X611gdzEMgKgfg
 //Get all characters of movie Id value

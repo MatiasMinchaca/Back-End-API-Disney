@@ -1,12 +1,11 @@
-POST http://localhost:3001/movies
+PUT http://localhost:3001/movies/47
 Content-Type: application/json
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImlhdCI6MTY0MzA0ODE2MiwiZXhwIjoxNjQzMTM0NTYyfQ.pUFynflTc4P5Slpy3cKPbc0pEXel-X611gdzEMgKgfg
 
 {
     "image": "test.png",
-    "title": "test",
+    "title": "test edit movie",
     "qualification": 5,
-    "created_date": "2021-12-15",
+    "created_date": "2021-12-13",
     "characterIds": 56
 }
-//Endpoint for create and Body content
